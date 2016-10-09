@@ -7,12 +7,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.IO.Compression;
-using MetroSkinToolkit;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MetroForSteamManager
+namespace MetroSkinToolkit
 {
     class SteamSkin
     {

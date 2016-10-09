@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SpawnPoint.CZ")]
 [assembly: AssemblyProduct("MetroSkinToolkit")]
-[assembly: AssemblyCopyright("Copyright © VentyCZ 2015")]
+[assembly: AssemblyCopyright("Copyright © VentyCZ 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,25 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MetroSkinToolkit
 {
-    /// <summary>
-    /// Interaction logic for Cortana.xaml
-    /// </summary>
     public partial class Cortana : UserControl
     {
         public Cortana()
@@ -129,8 +117,8 @@ namespace MetroSkinToolkit
                 Storyboard.SetTarget(anim, Circle);
                 Storyboard.SetTarget(anim_reverse, Circle);
 
-                Storyboard.SetTargetProperty(anim, new PropertyPath(Ellipse.StrokeThicknessProperty));
-                Storyboard.SetTargetProperty(anim_reverse, new PropertyPath(Ellipse.StrokeThicknessProperty));
+                Storyboard.SetTargetProperty(anim, new PropertyPath(Shape.StrokeThicknessProperty));
+                Storyboard.SetTargetProperty(anim_reverse, new PropertyPath(Shape.StrokeThicknessProperty));
 
                 sb.Begin();
             }
@@ -144,7 +132,7 @@ namespace MetroSkinToolkit
         {
             if (Dispatcher.CheckAccess())
             {
-                Circle.BeginAnimation(Ellipse.StrokeThicknessProperty, null);
+                Circle.BeginAnimation(Shape.StrokeThicknessProperty, null);
             }
             else
             {

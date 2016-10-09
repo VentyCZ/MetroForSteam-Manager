@@ -1,18 +1,13 @@
-﻿using MetroSkinToolkit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MetroForSteamManager
+namespace MetroSkinToolkit
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private SteamSkin control = new SteamSkin();
@@ -111,7 +106,7 @@ namespace MetroForSteamManager
             RadioButton menuItem = sender as RadioButton;
 
             if (menuItem == MenuSettings_AccentColor) { UI_SetPage_Settings(pageName_Settings_AccentColor); }
-            else if(menuItem == MenuSettings_FriendList) { UI_SetPage_Settings(pageName_Settings_FriendsList); }
+            else if (menuItem == MenuSettings_FriendList) { UI_SetPage_Settings(pageName_Settings_FriendsList); }
         }
 
         private void UI_MenuClick(object sender, RoutedEventArgs e)
@@ -193,7 +188,7 @@ namespace MetroForSteamManager
                 Dispatcher.Invoke(delegate () { UI_SetPage_Settings(valPage); });
             }
         }
-        
+
         private void UI_SetStatus(string txt)
         {
             if (Dispatcher.CheckAccess())
