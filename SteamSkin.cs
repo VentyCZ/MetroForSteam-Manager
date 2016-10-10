@@ -19,24 +19,24 @@ namespace MetroSkinToolkit
         public event EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DownloadCompleted;
 
         private string steamInstallationPath;
-        private string steamSkinsDirectory { get { return pathCheck(steamInstallationPath + "/skins"); } }
+        private string steamSkinsDirectory { get { return MyApp.PrepPath(steamInstallationPath + "/skins"); } }
 
         private string folderName_skin;
         private string folderName_font;
         private string fileName_font;
 
-        private string pathDataDir { get { return pathCheck(steamSkinsDirectory + "/data"); } }
-        private string pathSkinDownloadDir { get { return pathCheck(pathDataDir + "/download"); } }
-        private string pathSkinDownloadFilename { get { return pathCheck(pathSkinDownloadDir + "/" + Path.GetFileName(infoSkinDownloadUrl)); } }
-        private string pathSkinExtractDir { get { return pathCheck(pathDataDir + "/extract"); } }
-        private string pathFontDir { get { return pathCheck(pathSkinExtractDir + "/" + folderName_font); } }
-        private string pathFontFilename { get { return pathCheck(pathFontDir + "/" + fileName_font); } }
-        private string pathFontInSys { get { return pathCheck(@"C:\Windows\Fonts\" + fileName_font); } }
+        private string pathDataDir { get { return MyApp.PrepPath(steamSkinsDirectory + "/data"); } }
+        private string pathSkinDownloadDir { get { return MyApp.PrepPath(pathDataDir + "/download"); } }
+        private string pathSkinDownloadFilename { get { return MyApp.PrepPath(pathSkinDownloadDir + "/" + Path.GetFileName(infoSkinDownloadUrl)); } }
+        private string pathSkinExtractDir { get { return MyApp.PrepPath(pathDataDir + "/extract"); } }
+        private string pathFontDir { get { return MyApp.PrepPath(pathSkinExtractDir + "/" + folderName_font); } }
+        private string pathFontFilename { get { return MyApp.PrepPath(pathFontDir + "/" + fileName_font); } }
+        private string pathFontInSys { get { return MyApp.PrepPath(@"C:\Windows\Fonts\" + fileName_font); } }
 
         private string metroSkinVersion;
-        private string metroSkinDirectory { get { return pathCheck(steamSkinsDirectory + "/" + folderName_skin); } }
-        private string metroSkinMenuFile { get { return pathCheck(metroSkinDirectory + "/resource/menus/steam.menu"); } }
-        private string metroCustomStylesFile { get { return pathCheck(metroSkinDirectory + "/custom.styles"); } }
+        private string metroSkinDirectory { get { return MyApp.PrepPath(steamSkinsDirectory + "/" + folderName_skin); } }
+        private string metroSkinMenuFile { get { return MyApp.PrepPath(metroSkinDirectory + "/resource/menus/steam.menu"); } }
+        private string metroCustomStylesFile { get { return MyApp.PrepPath(metroSkinDirectory + "/custom.styles"); } }
 
         private string infoUrl = "http://data.spawnpoint.cz/info/MFS.xml";
         private string infoRawXml;
@@ -55,15 +55,6 @@ namespace MetroSkinToolkit
         private Thread SetupThread;
 
         #region Hidden Fuctions
-        /// <summary>
-        /// Returns fixed path separators - replaces forward slash with the right one (Path.DirectorySeparatorChar), if needed
-        /// </summary>
-        /// <param name="path">Path to fix</param>
-        /// <returns>Fixed path</returns>
-        private string pathCheck(string path)
-        {
-            return path.Replace('/', Path.DirectorySeparatorChar);
-        }
 
         private string getRegistryInfoAboutSteam(string key)
         {
@@ -77,7 +68,9 @@ namespace MetroSkinToolkit
                 string contents = File.ReadAllText(metroSkinMenuFile);
 
                 Match m = Regex.Match(contents, @"\""Metro For Steam - ([0-9\.]+)\""");
-                if (m.Success) { return m.Groups[1].Value; }
+
+                if (m.Success)
+                    return m.Groups[1].Value;
             }
 
             return string.Empty;
@@ -199,7 +192,7 @@ namespace MetroSkinToolkit
             {
                 var fontFiles = subDir.GetFiles("*.ttf");
                 var isFontDir = fontFiles.Length > 0;
-                var isSkinDir = File.Exists(pathCheck(subDir.FullName + "/resource/styles/steam.styles"));
+                var isSkinDir = File.Exists(MyApp.PrepPath(subDir.FullName + "/resource/styles/steam.styles"));
 
                 if (isFontDir) { folderName_font = subDir.Name; fileName_font = fontFiles.FirstOrDefault().Name; }
                 if (isSkinDir) { folderName_skin = subDir.Name; }
@@ -252,7 +245,6 @@ namespace MetroSkinToolkit
             }).Start();
         }
 
-
         public void StopSetup()
         {
             if (SetupThread != null) { SetupThread.Abort(); }
@@ -302,7 +294,7 @@ namespace MetroSkinToolkit
                 catch (Exception)
                 {
                     Directory.Move(pathSkinExtractDir + @"\" + folderName_skin, metroSkinDirectory);
-                }                
+                }
 
                 if (canRestoreStyle())
                 {

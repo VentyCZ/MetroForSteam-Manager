@@ -1,48 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace MetroSkinToolkit
 {
     public static class MyApp
     {
-        private static Page activePage = null;
-        private static Page activeSettingsPage = null;
-        private static Dictionary<string, Page> Pages = new Dictionary<string, Page>();
-        private static Dictionary<string, Page> Pages_Settings = new Dictionary<string, Page>();
-
-        public static Page AddPage(string name, Grid content)
-        {
-            return new Page(name, content, Pages);
-        }
-
-        public static Page AddSettingsPage(string name, Grid content)
-        {
-            return new Page(name, content, Pages_Settings);
-        }
-
         public static string Name { get { return Assembly.GetExecutingAssembly().GetName().Name; } }
         public static Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         public static string SmallVersion { get { return Version.smallVersion(); } }
 
-        public class Page
+        public readonly static PageCollection Pages = new PageCollection();
+        public readonly static PageCollection Pages_Settings = new PageCollection();
+
+        private static Dispatcher UI_Dispatcher = Application.Current.Dispatcher;
+        public static void WorkOnUI(Action deleg)
         {
-            public string Name { get; private set; }
-            public Grid Content { get; private set; }
-
-            public Page(string name, Grid content, Dictionary<string, Page> container)
+            if (deleg != null)
             {
-                Name = name;
-                Content = content;
-
-                container.Add(name, this);
+                if (UI_Dispatcher.CheckAccess())
+                    deleg();
+                else
+                    UI_Dispatcher.Invoke(deleg);
             }
+        }
 
+        public static string PrepPath(string path)
+        {
+            return path.Replace('/', Path.DirectorySeparatorChar);
+        }
 
+        public static class Constants
+        {
+            public const string page_Menu = "MENU";
+            public const string page_Setup = "SETUP";
+            public const string page_Options = "OPTIONS";
+            public const string page_Options_AccentColor = "SETTING_ACCENT_COLOR";
+            public const string page_Options_FriendsList = "SETTING_FRIEND_LIST";
+            public const string page_About = "ABOUT";
         }
     }
 }

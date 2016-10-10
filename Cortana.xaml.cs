@@ -17,18 +17,15 @@ namespace MetroSkinToolkit
 
         public void FillUp(int percentage)
         {
-            if (!(percentage <= 100 && percentage >= 0)) { return; }
-
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
+                if (!(percentage <= 100 && percentage >= 0))
+                    return;
+
                 var heightOfPercent = ActualHeight / 100;
                 percentage = 100 - percentage; //Reverse
                 Filler.Height = heightOfPercent * percentage;
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { FillUp(percentage); });
-            }
+            });
         }
 
         public void TestAnim()
@@ -62,47 +59,33 @@ namespace MetroSkinToolkit
 
         public void SetInnerBrush(Color clr)
         {
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
                 Circle.Fill = new SolidColorBrush(clr);
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { SetInnerBrush(clr); });
-            }
+            });
         }
 
         public void StartRotateAnim(double secRotateTime = 0.75)
         {
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
-                var rotationTime = TimeSpan.FromSeconds(secRotateTime);
-
-                var anim = new DoubleAnimation(0, 360, new Duration(rotationTime));
+                var anim = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(secRotateTime)));
                 anim.RepeatBehavior = RepeatBehavior.Forever;
                 CenterForm.BeginAnimation(RotateTransform.AngleProperty, anim);
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { StartRotateAnim(secRotateTime); });
-            }
+            });
         }
 
         public void StopRotateAnim()
         {
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
                 CenterForm.BeginAnimation(RotateTransform.AngleProperty, null);
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { StopRotateAnim(); });
-            }
+            });
         }
 
         public void StartPulseAnim(int min = 5, int max = 10, double secPulse = 0.5)
         {
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
                 TimeSpan pulseTime = TimeSpan.FromSeconds(secPulse);
 
@@ -121,23 +104,15 @@ namespace MetroSkinToolkit
                 Storyboard.SetTargetProperty(anim_reverse, new PropertyPath(Shape.StrokeThicknessProperty));
 
                 sb.Begin();
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { StartPulseAnim(max, min, secPulse); });
-            }
+            });
         }
 
         public void StopPulseAnim()
         {
-            if (Dispatcher.CheckAccess())
+            MyApp.WorkOnUI(delegate ()
             {
                 Circle.BeginAnimation(Shape.StrokeThicknessProperty, null);
-            }
-            else
-            {
-                Dispatcher.Invoke(delegate () { StopPulseAnim(); });
-            }
+            });
         }
     }
 }

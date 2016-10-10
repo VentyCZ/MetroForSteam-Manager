@@ -77,6 +77,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MyApp.cs" />
+    <Compile Include="PageCollection.cs" />
     <Compile Include="SteamSkin.cs" />
     <Page Include="Cortana.xaml">
       <Generator>MSBuild:Compile</Generator>
