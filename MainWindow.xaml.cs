@@ -62,6 +62,8 @@ namespace MetroSkinToolkit
         private Version programVersion { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         private string theVersion { get { return programVersion.smallVersion(); } }
 
+
+
         private void UAC_Prompt_Click(object sender, RoutedEventArgs e)
         {
             UAC_Prompt.Visibility = Visibility.Collapsed;
