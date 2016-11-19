@@ -2,14 +2,8 @@
 <info>
   <issues>
   </issues>
-  <installer>
-    <version>0.7.2.0</version>
-    <version_beta>0.9.0.0</version_beta>
-    <last_update>6.9.2014</last_update>
-  </installer>
-  <skin>
-    <version>4.2.2</version>
-    <last_update>6.10.2016</last_update>
-    <download>http://metroforsteam.com/downloads/4.2.2.zip</download>
-  </skin>
+
+  <version>0.7.2.0</version>
+  <version_beta>0.9.0.0</version_beta>
+  <last_update>6.9.2014</last_update>
 </info>

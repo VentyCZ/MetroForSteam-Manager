@@ -8,6 +8,11 @@ namespace MetroSkinToolkit
 {
     public static class ExtensionMethods
     {
+        public static string AppendPath(this string parent, string appended)
+        {
+            return parent.TrimEnd('/') + "/" + appended.TrimStart('/');
+        }
+
         public static string smallVersion(this Version ver, int minimum = 2)
         {
             string[] parts = ver.ToString().Split('.');

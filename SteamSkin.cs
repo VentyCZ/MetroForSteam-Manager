@@ -40,6 +40,7 @@ namespace MetroSkinToolkit
         private string metroCustomStylesFile { get { return MyApp.PrepPath(metroSkinDirectory + "/custom.styles"); } }
 
         private string infoUrl = "https://raw.githubusercontent.com/VentyCZ/MetroSkinToolkit/testing/Data/update.xml";
+        private string infoSkinUrl = "http://metroforsteam.com/";
         private string infoRawXml;
         private string infoSkinDownloadUrl;
         private string infoLatestSkin;
@@ -97,6 +98,7 @@ namespace MetroSkinToolkit
             steamInstallationPath = getRegistryInfoAboutSteam("InstallPath").TrimEnd(Path.DirectorySeparatorChar);
         }
 
+        private Regex r_downloadLink = new Regex("\"(downloads\\/(\\S+))\"", RegexOptions.Compiled);
         private void downloadInfo()
         {
             using (WebClient wc = new WebClient())
@@ -105,13 +107,33 @@ namespace MetroSkinToolkit
                 {
                     infoRawXml = wc.DownloadString(infoUrl);
                     XmlDocument xml = new XmlDocument(); xml.LoadXml(infoRawXml);
-                    infoSkinDownloadUrl = xml.SelectSingleNode("/info/skin/download").InnerText;
-                    infoLatestSkin = xml.SelectSingleNode("/info/skin/version").InnerText;
-                    infoLatestProgram = xml.SelectSingleNode("/info/installer/version").InnerText;
+                    infoLatestProgram = xml.SelectSingleNode("/info/version").InnerText;
                 }
                 catch (Exception)
                 {
                     infoRawXml = null;
+
+                    Console.WriteLine("Failed to retreive the installer version!");
+                }
+
+                try
+                {
+                    var html = wc.DownloadString(infoSkinUrl);
+                    var match = r_downloadLink.Match(html);
+
+                    if (match.Success)
+                    {
+                        infoSkinDownloadUrl = infoSkinUrl.AppendPath(match.Groups[1].Value);
+                        infoLatestSkin = match.Groups[2].Value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to retreive the skin download link! (Invalid format)");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to retreive the skin download link!");
                 }
             }
         }
