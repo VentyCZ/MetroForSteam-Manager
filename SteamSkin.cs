@@ -39,7 +39,7 @@ namespace MetroSkinToolkit
         private string metroSkinMenuFile { get { return MyApp.PrepPath(metroSkinDirectory + "/resource/menus/steam.menu"); } }
         private string metroCustomStylesFile { get { return MyApp.PrepPath(metroSkinDirectory + "/custom.styles"); } }
 
-        private string infoUrl = "http://data.spawnpoint.cz/info/MFS.xml";
+        private string infoUrl = "https://raw.githubusercontent.com/VentyCZ/MetroSkinToolkit/testing/Data/update.xml";
         private string infoRawXml;
         private string infoSkinDownloadUrl;
         private string infoLatestSkin;
@@ -60,8 +60,6 @@ namespace MetroSkinToolkit
         public bool SteamInstalled { get { return steamInstallationPath != string.Empty; } }
         public string SteamDirectory { get { return steamInstallationPath; } }
         public bool SteamRunning { get { return steamIsRunning(); } }
-
-
 
         public string SkinVersion { get { return metroSkinVersion; } }
         public bool SkinInstalled { get { return metroSkinVersion != null; } }
