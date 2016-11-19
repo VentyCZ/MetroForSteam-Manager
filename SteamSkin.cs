@@ -11,14 +11,15 @@ using System.Linq;
 
 namespace MetroSkinToolkit
 {
-    class SteamSkin
+    //TODO: REWRITE THIS
+    public class SteamSkin
     {
         public event EventHandler InitComplete;
         public event EventHandler<SetupMilestones> SetupStepStarted;
         public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgress;
         public event EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DownloadCompleted;
 
-        private string steamInstallationPath;
+        private string steamInstallationPath = string.Empty;
         private string steamSkinsDirectory { get { return MyApp.PrepPath(steamInstallationPath + "/skins"); } }
 
         private string folderName_skin;
@@ -50,9 +51,26 @@ namespace MetroSkinToolkit
         private AutoResetEvent SkinDownloadCompleted = new AutoResetEvent(false);
         public AutoResetEvent UACNotify = new AutoResetEvent(false);
 
-        private bool InfoDownloadedSuccessfully { get { return infoRawXml != null; } }
-
         private Thread SetupThread;
+
+        public bool FontInstalled { get { return checkFontExistance(); } }
+
+        public bool InfoObtained { get { return infoRawXml != null; } }
+
+        public bool SteamInstalled { get { return steamInstallationPath != string.Empty; } }
+        public string SteamDirectory { get { return steamInstallationPath; } }
+        public bool SteamRunning { get { return steamIsRunning(); } }
+
+
+
+        public string SkinVersion { get { return metroSkinVersion; } }
+        public bool SkinInstalled { get { return metroSkinVersion != null; } }
+
+        public string LatestSkinVersion { get { return infoLatestSkin; } }
+
+        public string LatestProgramVersion { get { return infoLatestProgram; } }
+
+        public bool LatestSkinVersionInstalled { get { return isLatestSkinIInstalled; } }
 
         #region Hidden Fuctions
 
@@ -241,7 +259,8 @@ namespace MetroSkinToolkit
                 metroSkinVersion = getSkinVersionFromMenu();
                 downloadInfo();
 
-                if (InitComplete != null) { InitComplete.Invoke(this, null); }
+                if (InitComplete != null)
+                    InitComplete.Invoke(this, null);
             }).Start();
         }
 
@@ -313,28 +332,6 @@ namespace MetroSkinToolkit
 
             SetupThread.Start();
         }
-        #endregion
-
-        #region Public props
-        public bool FontInstalled { get { return checkFontExistance(); } }
-
-        public bool InfoObtained { get { return InfoDownloadedSuccessfully; } }
-
-        public bool SteamInstalled { get { return steamInstallationPath != null; } }
-
-        public bool SteamRunning { get { return steamIsRunning(); } }
-
-        public string SteamDirectory { get { return steamInstallationPath; } }
-
-        public bool SkinInstalled { get { return metroSkinVersion != null; } }
-
-        public string SkinVersion { get { return metroSkinVersion; } }
-
-        public string LatestSkinVersion { get { return infoLatestSkin; } }
-
-        public string LatestProgramVersion { get { return infoLatestProgram; } }
-
-        public bool LatestSkinVersionInstalled { get { return isLatestSkinIInstalled; } }
         #endregion
     }
 }

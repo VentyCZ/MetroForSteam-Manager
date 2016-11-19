@@ -17,7 +17,7 @@ namespace MetroSkinToolkit
 
         public void FillUp(int percentage)
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 if (!(percentage <= 100 && percentage >= 0))
                     return;
@@ -59,7 +59,7 @@ namespace MetroSkinToolkit
 
         public void SetInnerBrush(Color clr)
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 Circle.Fill = new SolidColorBrush(clr);
             });
@@ -67,7 +67,7 @@ namespace MetroSkinToolkit
 
         public void StartRotateAnim(double secRotateTime = 0.75)
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 var anim = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(secRotateTime)));
                 anim.RepeatBehavior = RepeatBehavior.Forever;
@@ -77,7 +77,7 @@ namespace MetroSkinToolkit
 
         public void StopRotateAnim()
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 CenterForm.BeginAnimation(RotateTransform.AngleProperty, null);
             });
@@ -85,7 +85,7 @@ namespace MetroSkinToolkit
 
         public void StartPulseAnim(int min = 5, int max = 10, double secPulse = 0.5)
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 TimeSpan pulseTime = TimeSpan.FromSeconds(secPulse);
 
@@ -109,7 +109,7 @@ namespace MetroSkinToolkit
 
         public void StopPulseAnim()
         {
-            MyApp.WorkOnUI(delegate ()
+            MyApp.ExecuteOnUI(delegate ()
             {
                 Circle.BeginAnimation(Shape.StrokeThicknessProperty, null);
             });

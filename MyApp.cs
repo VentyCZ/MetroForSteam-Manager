@@ -11,12 +11,11 @@ namespace MetroSkinToolkit
         public static string Name { get { return Assembly.GetExecutingAssembly().GetName().Name; } }
         public static Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         public static string SmallVersion { get { return Version.smallVersion(); } }
-
-        public readonly static PageCollection Pages = new PageCollection();
-        public readonly static PageCollection Pages_Settings = new PageCollection();
+        public static SteamSkin Engine = new SteamSkin();
 
         private static Dispatcher UI_Dispatcher = Application.Current.Dispatcher;
-        public static void WorkOnUI(Action deleg)
+
+        public static void ExecuteOnUI(Action deleg)
         {
             if (deleg != null)
             {
@@ -36,7 +35,7 @@ namespace MetroSkinToolkit
         {
             public const string page_Menu = "MENU";
             public const string page_Setup = "SETUP";
-            public const string page_Options = "OPTIONS";
+            public const string page_Options = "SETTINGS_HOME";
             public const string page_Options_AccentColor = "SETTING_ACCENT_COLOR";
             public const string page_Options_FriendsList = "SETTING_FRIEND_LIST";
             public const string page_About = "ABOUT";

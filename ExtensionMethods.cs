@@ -14,36 +14,35 @@ namespace MetroSkinToolkit
             List<string> retVer = new List<string>();
 
             bool foundFirstReal = false;
-            //Go from last to first
             for (int x = parts.Length - 1; x >= 0; x--)
             {
                 //Skip if: is not mid 0 or end 0 & this is not the One
-                if (!foundFirstReal && parts[x] == "0" && !(x + 1 == minimum)) { continue; }
-                foundFirstReal = true;
+                if (!foundFirstReal && parts[x] == "0" && !(x + 1 == minimum))
+                    continue;
 
-                //Add to the reversed collection
+                foundFirstReal = true;
+                
                 retVer.Add(parts[x]);
             }
 
-            //Reverse the order - it was from last to first, remember ?
             retVer.Reverse();
-            //Return complete version number as string
             return string.Join(".", retVer);
         }
 
         public static double toKBytes(this long val, int decPlaces = 2)
         {
-            return Math.Round((float)val / 1000, decPlaces);
+            return Math.Round(val / Math.Pow(1000, 1), decPlaces);
         }
 
         public static double toMBytes(this long val, int decPlaces = 2)
         {
-            return Math.Round((float)val / (1000 * 1000), decPlaces);
+            return Math.Round(val / Math.Pow(1000, 2), decPlaces);
         }
 
         public static void DeleteContents(this DirectoryInfo dir)
         {
-            if (dir.Exists) {
+            if (dir.Exists)
+            {
                 foreach (var directory in dir.GetDirectories())
                 {
                     directory.DeleteContents();
@@ -63,6 +62,7 @@ namespace MetroSkinToolkit
                 }
 
             }
+
             if (!dir.Exists) { dir.Create(); }
         }
 

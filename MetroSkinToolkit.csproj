@@ -76,9 +76,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\HeaderBar.xaml.cs">
+      <DependentUpon>HeaderBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyApp.cs" />
     <Compile Include="PageCollection.cs" />
+    <Compile Include="Pages\Page_About.cs" />
+    <Compile Include="Pages\Page_Menu.cs" />
+    <Compile Include="Pages\Page_Settings.cs" />
+    <Compile Include="Pages\Page_Setup.cs" />
     <Compile Include="SteamSkin.cs" />
+    <Compile Include="TabWindow.cs" />
+    <Page Include="Components\HeaderBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Cortana.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

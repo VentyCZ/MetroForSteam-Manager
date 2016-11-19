@@ -1,84 +1,127 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MetroSkinToolkit
 {
     public class Page
     {
         public string Name { get; private set; }
-        public Grid Content { get; private set; }
+        public bool IsDefault { get; private set; }
+        public FrameworkElement Content { get; private set; }
         public PageCollection Container { get; private set; }
+        public PageCollection SubPages { get; private set; }
 
-        public Page(string name, Grid content)
+        private void setVisible(bool visible)
+        {
+            if (Content != null)
+                Content.Dispatcher.Invoke(delegate ()
+                {
+                    Content.Visibility = (visible ? Visibility.Visible : Visibility.Hidden);
+                });
+        }
+
+        public Page(string name, FrameworkElement content, bool isDefault = false)
         {
             Name = name;
+            IsDefault = isDefault;
             Content = content;
+            SubPages = new PageCollection();
         }
 
-        public void SetContainer(PageCollection container)
+        protected internal void SetContainer(PageCollection container)
         {
             Container = container;
-            container.Add(this);
         }
 
-        public void Hide()
+        public void Hide(bool trigger = true)
         {
-            if (Content != null)
-                Content.Visibility = Visibility.Hidden;
+            setVisible(false);
+
+            if (trigger)
+                OnDeactivation();
         }
 
-        public void Show()
+        public void Show(bool trigger = true)
         {
-            if (Content != null)
-                Content.Visibility = Visibility.Visible;
+            setVisible(true);
+
+            if (trigger)
+                OnActivation();
         }
+
+        public void Activate()
+        {
+            if (Container != null)
+                Container.SetActive(this);
+        }
+
+        protected virtual void OnActivation() { }
+        protected virtual void OnDeactivation() { }
     }
 
     public class PageCollection
     {
         private Dictionary<string, Page> pages;
-        private Page activePage;
+        public Page ActivePage { get; private set; }
+        public Page DefaultPage { get; private set; }
 
         public PageCollection()
         {
             pages = new Dictionary<string, Page>();
         }
 
-        public Page Create(string name, Grid content)
+        public Page Get(string name)
         {
-            return Add(new Page(name, content));
+            return (pages.ContainsKey(name) ? pages[name] : null);
+        }
+
+        public Page Create(string name, FrameworkElement content, bool isDefault = false)
+        {
+            return Add(new Page(name, content, isDefault));
         }
 
         public Page Add(Page pg)
         {
-            pages[pg.Name] = pg;
-            pg.Hide();
+            if (pg.Container != this)
+            {
+                //NOTE: Should remove it from the other container tho
+
+                pages[pg.Name] = pg;
+                pg.SetContainer(this);
+            }
+
+            if (!pg.IsDefault)
+                pg.Hide(false);
+
+            if (pg.IsDefault)
+            {
+                DefaultPage = pg;
+                pg.Activate();
+            }
+
             return pg;
         }
 
-        public Page SetActive(Page pg)
+        public bool SetActive(Page pg)
         {
-            if (pg != null)
+            if (pg != null && pg.Container == this)
             {
-                if (activePage != null)
-                    activePage.Hide();
+                if (ActivePage != null)
+                    ActivePage.Hide();
 
-                activePage = pg;
-                activePage.Show();
+                ActivePage = pg;
+                ActivePage.Show();
 
-                return activePage;
+                return true;
             }
 
-            return null;
+            return false;
         }
 
-        public Page SetActive(string pgname)
+        public bool Go(string pgname)
         {
-            if (pages.ContainsKey(pgname))
-                return SetActive(pages[pgname]);
-
-            return null;
+            return SetActive(Get(pgname));
         }
     }
 }
