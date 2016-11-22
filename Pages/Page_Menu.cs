@@ -6,13 +6,11 @@ namespace MetroSkinToolkit.Pages
 {
     class Page_Menu : Page
     {
-        MainWindow wnd;
         Views.Menu view;
 
-        public Page_Menu(string name, FrameworkElement content, MainWindow mainWindow) : base(name, content, true)
+        public Page_Menu(string name, Views.Menu content) : base(name, content, true)
         {
-            wnd = mainWindow;
-            view = mainWindow.Page_Menu;
+            view = content;
 
             view.Menu_Setup.Click += onMenuItemClick;
             view.Menu_Settings.Click += onMenuItemClick;
@@ -25,15 +23,15 @@ namespace MetroSkinToolkit.Pages
 
             if (menuItem == view.Menu_Setup)
             {
-                wnd.SetPage(consts.page_Setup);
+                MyApp.MainWindow.SetPage(consts.page_Setup);
             }
             else if (menuItem == view.Menu_Settings)
             {
-                wnd.SetPage(consts.page_Settings);
+                MyApp.MainWindow.SetPage(consts.page_Settings);
             }
             else if (menuItem == view.Menu_About)
             {
-                wnd.SetPage(consts.page_About);
+                MyApp.MainWindow.SetPage(consts.page_About);
             }
         }
     }

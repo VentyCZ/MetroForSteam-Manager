@@ -9,9 +9,9 @@ namespace MetroSkinToolkit.Pages
     {
         Views.Settings view;
 
-        public Page_Settings(string name, FrameworkElement content, MainWindow mainWindow) : base(name, content, false)
+        public Page_Settings(string name, Views.Settings content) : base(name, content, false)
         {
-            view = mainWindow.Page_Settings;
+            view = content;
 
             view.MenuSettings_AccentColor.Click += onSettingsMenuItemClick;
             view.MenuSettings_FriendList.Click += onSettingsMenuItemClick;

@@ -12,6 +12,8 @@ namespace MetroSkinToolkit
         public static Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         public static string SmallVersion { get { return Version.smallVersion(); } }
         public static SteamSkin Engine = new SteamSkin();
+        public static MainWindow MainWindow { get { return Application.Current.MainWindow as MainWindow; } }
+        public static Components.HeaderBar Header { get { return MainWindow.Header; } }
 
         private static Dispatcher UI_Dispatcher = Application.Current.Dispatcher;
 

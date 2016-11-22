@@ -6,13 +6,11 @@ namespace MetroSkinToolkit.Pages
 {
     internal class Page_Setup : Page
     {
-        MainWindow wnd;
         Views.Setup view;
 
-        public Page_Setup(string name, FrameworkElement content, MainWindow mainWindow) : base(name, content, false)
+        public Page_Setup(string name, Views.Setup content) : base(name, content, false)
         {
-            wnd = mainWindow;
-            view = mainWindow.Page_Setup;
+            view = content;
 
             //Handlers
             view.UAC_Prompt.Click += onPromptClick;
@@ -24,11 +22,9 @@ namespace MetroSkinToolkit.Pages
 
         protected override void OnActivation()
         {
-            Console.WriteLine("Got activated!!! :D");
-
             view.UAC_Prompt.Visibility = Visibility.Collapsed;
 
-            //Corty.TestAnim();
+            view.Corty.TestAnim();
             //MyApp.Engine.StartSetup();
         }
 
@@ -116,7 +112,7 @@ namespace MetroSkinToolkit.Pages
                     view.Corty.StopPulseAnim();
                     SetStatus("Setup Complete");
                     view.Corty.SetInnerBrush((Color)ColorConverter.ConvertFromString("#FF28C92F"));
-                    wnd.Header.ToggleBackButton(true);
+                    MyApp.Header.ToggleBackButton(true);
                 }
             });
         }
