@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MetroSkinToolkit"
         xmlns:components="clr-namespace:MetroSkinToolkit.Components"
+        xmlns:views="clr-namespace:MetroSkinToolkit.Views"
         Title="MetroSkinToolkit" Height="350" Width="500" Icon="Classic.ico" Foreground="White" Background="Black" FontFamily="Segoe UI" ResizeMode="CanMinimize" WindowStyle="None">
     <Grid Background="#FF252526" Margin="1">
         <Grid.RowDefinitions>
@@ -13,83 +14,10 @@
 
         <components:HeaderBar x:Name="Header" Grid.Row="0"></components:HeaderBar>
         <Grid Grid.Row="1" Background="#FF252526">
-            <Grid Name="Page_Menu" Visibility="Visible">
-                <StackPanel TextBlock.TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.FontSize="15" MaxWidth="350">
-                    <TextBlock Text="WHAT YOU DESIRE ?" Margin="0,0,0,10" FontSize="15" FontWeight="Heavy" TextAlignment="Center"/>
-
-                    <components:MainMenuItem x:Name="Menu_Setup" Headline="Install / Update / Repair" Description="This option represents the starting point for skin installation &amp; updating" />
-                    <Separator Height="10" Background="DodgerBlue"/>
-                    <components:MainMenuItem x:Name="Menu_Options" Headline="Settings / Customization" Description="This option gives you tools to customize the looks of the skin - from colors to layout options" />
-                    <Separator Height="10" Background="DodgerBlue"/>
-                    <components:MainMenuItem x:Name="Menu_About" Headline="About" Description="This option enables you to get more information about all the authors involved" />
-                </StackPanel>
-            </Grid>
-            <Grid Name="Page_Setup" Visibility="Hidden">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="250">
-                    <local:Cortana x:Name="Corty" Width="200" Background="#FF252526"/>
-                    <Separator Height="10" Background="Transparent"/>
-                    <TextBlock Name="StateText" FontSize="15" FontWeight="Heavy" Text="STATUS: INSTALLING" TextAlignment="Center" TextWrapping="Wrap"/>
-                    <Button Name="UAC_Prompt" Content="OK, understand!" HorizontalAlignment="Center" Height="30"/>
-                </StackPanel>
-            </Grid>
-            <Grid Name="Page_Options" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="1"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0" Background="#33000000">
-                    <RadioButton Name="MenuSettings_AccentColor" Content="Accent color" Style="{StaticResource SideMenuItem}" IsChecked="True"/>
-                    <RadioButton Name="MenuSettings_FriendList" Content="Friend list" Style="{StaticResource SideMenuItem}"/>
-                    <RadioButton Content="Kappa3" Style="{StaticResource SideMenuItem}"/>
-                </StackPanel>
-                <Rectangle Grid.Column="1" Fill="Black"/>
-                <Grid Grid.Column="2">
-                    <Grid Name="Settings_Page_AccentColor" Background="Azure" Visibility="Visible"></Grid>
-                    <Grid Name="Settings_Page_FriendList" Background="BlanchedAlmond" Visibility="Hidden"></Grid>
-                </Grid>
-            </Grid>
-            <Grid Name="Page_About" Visibility="Hidden">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" VerticalAlignment="Top" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Name="About_ProgramName" Content="MetroSkinToolkit" Foreground="white" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <Label Grid.Column="1" Content="by Venty" Foreground="Gray" FontSize="16" VerticalAlignment="Center" />
-                    <Grid Grid.Column="2" Background="DodgerBlue">
-                        <Label Name="About_Version" Content="2.0" VerticalAlignment="Center" Foreground="White" FontSize="20"/>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="3" Background="Transparent">
-                    <Grid VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="2" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Label Content="Steam Skin" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
-                            <Label Content="by Dom" HorizontalAlignment="Center" Foreground="Gray" FontSize="16" />
-                        </StackPanel>
-                        <Rectangle Grid.Column="1" Fill="DodgerBlue"/>
-                        <StackPanel Grid.Column="2">
-                            <Label Content="Settings App" HorizontalAlignment="Center" Foreground="White" FontSize="18"/>
-                            <Label Content="by SoapyHamHocks" HorizontalAlignment="Center" Foreground="Gray" FontSize="16" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <views:Menu x:Name="Page_Menu" Visibility="Visible"/>
+            <views:Setup x:Name="Page_Setup" Visibility="Hidden"/>
+            <views:Settings x:Name="Page_Options" Visibility="Hidden"/>
+            <views:About x:Name="Page_About" Visibility="Hidden"/>
         </Grid>
     </Grid>
 </local:TabWindow>

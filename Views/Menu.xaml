@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="MetroSkinToolkit.Views.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MetroSkinToolkit.Views"
+             xmlns:components="clr-namespace:MetroSkinToolkit.Components"
+             mc:Ignorable="d" d:DesignHeight="311" d:DesignWidth="498">
+    <Grid>
+        <StackPanel TextBlock.TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.FontSize="15" MaxWidth="350">
+            <TextBlock Text="WHAT YOU DESIRE ?" Margin="0,0,0,10" FontSize="15" FontWeight="Heavy" TextAlignment="Center"/>
+
+            <components:MainMenuItem x:Name="Menu_Setup" Headline="Install / Update / Repair" Description="This option represents the starting point for skin installation &amp; updating" />
+            <Separator Height="10" Background="DodgerBlue"/>
+            <components:MainMenuItem x:Name="Menu_Options" Headline="Settings / Customization" Description="This option gives you tools to customize the looks of the skin - from colors to layout options" />
+            <Separator Height="10" Background="DodgerBlue"/>
+            <components:MainMenuItem x:Name="Menu_About" Headline="About" Description="This option enables you to get more information about all the authors involved" />
+        </StackPanel>
+    </Grid>
+</UserControl>

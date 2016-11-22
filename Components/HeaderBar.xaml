@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MetroSkinToolkit.Components"
-             mc:Ignorable="d" 
-             d:DesignHeight="36" d:DesignWidth="453">
+             mc:Ignorable="d" d:DesignHeight="36" d:DesignWidth="453">
     <Grid Background="#FF2D2D30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="34"/>
@@ -15,7 +14,7 @@
 
         <Grid Grid.Column="0">
             <Button Name="Button_Back">
-                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None" Source="../Resources/images/back.png"/>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None" Source="/Resources/images/back.png"/>
             </Button>
         </Grid>
 

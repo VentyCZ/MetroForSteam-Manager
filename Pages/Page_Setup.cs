@@ -6,14 +6,16 @@ namespace MetroSkinToolkit.Pages
 {
     internal class Page_Setup : Page
     {
-        private MainWindow wnd;
+        MainWindow wnd;
+        Views.Setup view;
 
         public Page_Setup(string name, FrameworkElement content, MainWindow mainWindow) : base(name, content, false)
         {
             wnd = mainWindow;
+            view = mainWindow.Page_Setup;
 
             //Handlers
-            wnd.UAC_Prompt.Click += onPromptClick;
+            view.UAC_Prompt.Click += onPromptClick;
 
             MyApp.Engine.SetupStepStarted += onControlStepStart;
             MyApp.Engine.DownloadProgress += onControlProgress;
@@ -24,7 +26,7 @@ namespace MetroSkinToolkit.Pages
         {
             Console.WriteLine("Got activated!!! :D");
 
-            wnd.UAC_Prompt.Visibility = Visibility.Collapsed;
+            view.UAC_Prompt.Visibility = Visibility.Collapsed;
 
             //Corty.TestAnim();
             //MyApp.Engine.StartSetup();
@@ -32,7 +34,7 @@ namespace MetroSkinToolkit.Pages
 
         private void onPromptClick(object sender, RoutedEventArgs e)
         {
-            wnd.UAC_Prompt.Visibility = Visibility.Collapsed;
+            view.UAC_Prompt.Visibility = Visibility.Collapsed;
             MyApp.Engine.UACNotify.Set();
         }
 
@@ -40,7 +42,7 @@ namespace MetroSkinToolkit.Pages
         {
             MyApp.ExecuteOnUI(delegate ()
             {
-                wnd.StateText.Text = "STATUS: " + txt.ToUpper();
+                view.StateText.Text = "STATUS: " + txt.ToUpper();
             });
         }
 
@@ -54,7 +56,7 @@ namespace MetroSkinToolkit.Pages
         private void onControlProgress(object sender, System.Net.DownloadProgressChangedEventArgs e)
         {
             Console.WriteLine(string.Format("Downloading... {3}% {1}/{2} MBs", string.Empty, e.BytesReceived.toMBytes(), e.TotalBytesToReceive.toMBytes(), e.ProgressPercentage));
-            wnd.Corty.FillUp(e.ProgressPercentage);
+            view.Corty.FillUp(e.ProgressPercentage);
 
             //DownloadProgress(e);
         }
@@ -72,25 +74,25 @@ namespace MetroSkinToolkit.Pages
             {
                 if (step != SteamSkin.SetupMilestones.DownloadArchive && step != SteamSkin.SetupMilestones.ExtractArchive && step != SteamSkin.SetupMilestones.Completed)
                 {
-                    wnd.Corty.StopPulseAnim();
-                    wnd.Corty.StartRotateAnim(1.25);
+                    view.Corty.StopPulseAnim();
+                    view.Corty.StartRotateAnim(1.25);
                 }
 
                 if (step == SteamSkin.SetupMilestones.DownloadArchive)
                 {
-                    wnd.Corty.FillUp(0);
-                    wnd.Corty.SetInnerBrush(Colors.Transparent);
+                    view.Corty.FillUp(0);
+                    view.Corty.SetInnerBrush(Colors.Transparent);
                     SetStatus("Downloading archive");
                 }
                 else if (step == SteamSkin.SetupMilestones.ExtractArchive)
                 {
                     SetStatus("Extracting archive");
-                    wnd.Corty.StartPulseAnim();
+                    view.Corty.StartPulseAnim();
                 }
                 else if (step == SteamSkin.SetupMilestones.InstallFont)
                 {
                     SetStatus("Installing font\nPress Yes on prompt.");
-                    wnd.UAC_Prompt.Visibility = Visibility.Visible;
+                    view.UAC_Prompt.Visibility = Visibility.Visible;
                 }
                 else if (step == SteamSkin.SetupMilestones.BackupStyle)
                 {
@@ -110,10 +112,10 @@ namespace MetroSkinToolkit.Pages
                 }
                 else if (step == SteamSkin.SetupMilestones.Completed)
                 {
-                    wnd.Corty.StopRotateAnim();
-                    wnd.Corty.StopPulseAnim();
+                    view.Corty.StopRotateAnim();
+                    view.Corty.StopPulseAnim();
                     SetStatus("Setup Complete");
-                    wnd.Corty.SetInnerBrush((Color)ColorConverter.ConvertFromString("#FF28C92F"));
+                    view.Corty.SetInnerBrush((Color)ColorConverter.ConvertFromString("#FF28C92F"));
                     wnd.Header.ToggleBackButton(true);
                 }
             });

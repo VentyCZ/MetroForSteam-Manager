@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace MetroSkinToolkit
+namespace MetroSkinToolkit.Components
 {
     public partial class Cortana : UserControl
     {
