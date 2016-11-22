@@ -22,9 +22,21 @@ namespace MetroSkinToolkit
             if (deleg != null)
             {
                 if (UI_Dispatcher.CheckAccess())
+                {
                     deleg();
+                }
                 else
-                    UI_Dispatcher.Invoke(deleg);
+                {
+                    /*
+                     * NOTE: Stop everything before disposing the elements!!
+                     * If not, the application wil keep running in the backgound...
+                     * It's here just to save the app from crashing...                     
+                     */
+                    if (!UI_Dispatcher.HasShutdownStarted)
+                    {
+                        UI_Dispatcher.Invoke(deleg);
+                    }
+                }
             }
         }
 

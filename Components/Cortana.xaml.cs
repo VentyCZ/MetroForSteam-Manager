@@ -28,9 +28,9 @@ namespace MetroSkinToolkit.Components
             });
         }
 
-        public void TestAnim()
+        public Thread TestAnim()
         {
-            new Thread(delegate ()
+            var th = new Thread(delegate ()
             {
                 for (int x = 0; x <= 100; x++)
                 {
@@ -54,7 +54,11 @@ namespace MetroSkinToolkit.Components
                 StopRotateAnim();
 
                 SetInnerBrush(Colors.Green);
-            }).Start();
+            });
+
+            th.Start();
+
+            return th;
         }
 
         public void SetInnerBrush(Color clr)

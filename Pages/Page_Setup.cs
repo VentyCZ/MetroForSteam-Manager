@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 
@@ -20,18 +21,26 @@ namespace MetroSkinToolkit.Pages
             MyApp.Engine.DownloadCompleted += onControlComplete;
         }
 
-        protected override void OnActivation()
-        {
-            view.UAC_Prompt.Visibility = Visibility.Collapsed;
-
-            view.Corty.TestAnim();
-            //MyApp.Engine.StartSetup();
-        }
-
         private void onPromptClick(object sender, RoutedEventArgs e)
         {
             view.UAC_Prompt.Visibility = Visibility.Collapsed;
             MyApp.Engine.UACNotify.Set();
+        }
+
+        private Thread th_testAnim;
+        protected override void OnActivation()
+        {
+            view.UAC_Prompt.Visibility = Visibility.Collapsed;
+
+            th_testAnim = view.Corty.TestAnim();
+
+            //MyApp.Engine.StartSetup();
+        }
+
+        protected override void OnDeactivation()
+        {
+            //Stop everything here!
+            th_testAnim?.Abort();
         }
 
         private void SetStatus(string txt)
@@ -66,55 +75,52 @@ namespace MetroSkinToolkit.Pages
 
         private void SetupStepStart(SteamSkin.SetupMilestones step)
         {
-            MyApp.ExecuteOnUI(delegate ()
+            if (step != SteamSkin.SetupMilestones.DownloadArchive && step != SteamSkin.SetupMilestones.ExtractArchive && step != SteamSkin.SetupMilestones.Completed)
             {
-                if (step != SteamSkin.SetupMilestones.DownloadArchive && step != SteamSkin.SetupMilestones.ExtractArchive && step != SteamSkin.SetupMilestones.Completed)
-                {
-                    view.Corty.StopPulseAnim();
-                    view.Corty.StartRotateAnim(1.25);
-                }
+                view.Corty.StopPulseAnim();
+                view.Corty.StartRotateAnim(1.25);
+            }
 
-                if (step == SteamSkin.SetupMilestones.DownloadArchive)
-                {
-                    view.Corty.FillUp(0);
-                    view.Corty.SetInnerBrush(Colors.Transparent);
-                    SetStatus("Downloading archive");
-                }
-                else if (step == SteamSkin.SetupMilestones.ExtractArchive)
-                {
-                    SetStatus("Extracting archive");
-                    view.Corty.StartPulseAnim();
-                }
-                else if (step == SteamSkin.SetupMilestones.InstallFont)
-                {
-                    SetStatus("Installing font\nPress Yes on prompt.");
-                    view.UAC_Prompt.Visibility = Visibility.Visible;
-                }
-                else if (step == SteamSkin.SetupMilestones.BackupStyle)
-                {
-                    SetStatus("Backing up");
-                }
-                else if (step == SteamSkin.SetupMilestones.DeleteExisting)
-                {
-                    SetStatus("Deleting existing files");
-                }
-                else if (step == SteamSkin.SetupMilestones.CopyNew)
-                {
-                    SetStatus("Copying new files");
-                }
-                else if (step == SteamSkin.SetupMilestones.RestoreStyle)
-                {
-                    SetStatus("Restoring");
-                }
-                else if (step == SteamSkin.SetupMilestones.Completed)
-                {
-                    view.Corty.StopRotateAnim();
-                    view.Corty.StopPulseAnim();
-                    SetStatus("Setup Complete");
-                    view.Corty.SetInnerBrush((Color)ColorConverter.ConvertFromString("#FF28C92F"));
-                    MyApp.Header.ToggleBackButton(true);
-                }
-            });
+            if (step == SteamSkin.SetupMilestones.DownloadArchive)
+            {
+                view.Corty.FillUp(0);
+                view.Corty.SetInnerBrush(Colors.Transparent);
+                SetStatus("Downloading archive");
+            }
+            else if (step == SteamSkin.SetupMilestones.ExtractArchive)
+            {
+                SetStatus("Extracting archive");
+                view.Corty.StartPulseAnim();
+            }
+            else if (step == SteamSkin.SetupMilestones.InstallFont)
+            {
+                SetStatus("Installing font\nPress Yes on prompt.");
+                view.UAC_Prompt.Visibility = Visibility.Visible;
+            }
+            else if (step == SteamSkin.SetupMilestones.BackupStyle)
+            {
+                SetStatus("Backing up");
+            }
+            else if (step == SteamSkin.SetupMilestones.DeleteExisting)
+            {
+                SetStatus("Deleting existing files");
+            }
+            else if (step == SteamSkin.SetupMilestones.CopyNew)
+            {
+                SetStatus("Copying new files");
+            }
+            else if (step == SteamSkin.SetupMilestones.RestoreStyle)
+            {
+                SetStatus("Restoring");
+            }
+            else if (step == SteamSkin.SetupMilestones.Completed)
+            {
+                view.Corty.StopRotateAnim();
+                view.Corty.StopPulseAnim();
+                SetStatus("Setup Complete");
+                view.Corty.SetInnerBrush((Color)ColorConverter.ConvertFromString("#FF28C92F"));
+                MyApp.Header.ToggleBackButton(true);
+            }
         }
     }
 }
