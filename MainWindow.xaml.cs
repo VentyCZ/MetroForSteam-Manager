@@ -60,6 +60,7 @@ namespace MetroSkinToolkit
             Version latest;
             if (Version.TryParse(MyApp.Engine.LatestProgramVersion, out latest))
             {
+                //TODO: Add notification to About page, or the GitHub app arrow to header
                 if (latest > MyApp.Version)
                 {
                     Console.WriteLine("Better upgrade, son!");

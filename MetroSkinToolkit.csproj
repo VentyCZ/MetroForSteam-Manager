@@ -79,6 +79,9 @@
     <Compile Include="Components\HeaderBar.xaml.cs">
       <DependentUpon>HeaderBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\MainMenuItem.xaml.cs">
+      <DependentUpon>MainMenuItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyApp.cs" />
     <Compile Include="PageCollection.cs" />
     <Compile Include="Pages\Page_About.cs" />
@@ -88,6 +91,10 @@
     <Compile Include="SteamSkin.cs" />
     <Compile Include="TabWindow.cs" />
     <Page Include="Components\HeaderBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MainMenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
