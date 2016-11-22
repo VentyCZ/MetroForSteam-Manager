@@ -11,13 +11,13 @@ namespace MetroSkinToolkit.Pages
 
         public Page_Settings(string name, FrameworkElement content, MainWindow mainWindow) : base(name, content, false)
         {
-            view = mainWindow.Page_Options;
+            view = mainWindow.Page_Settings;
 
             view.MenuSettings_AccentColor.Click += onSettingsMenuItemClick;
             view.MenuSettings_FriendList.Click += onSettingsMenuItemClick;
 
-            SubPages.Create(consts.page_Options_AccentColor, view.Settings_Page_AccentColor, true);
-            SubPages.Create(consts.page_Options_FriendsList, view.Settings_Page_FriendList);
+            SubPages.Create(consts.page_Settings_AccentColor, view.Settings_Page_AccentColor, true);
+            SubPages.Create(consts.page_Settings_FriendsList, view.Settings_Page_FriendList);
         }
 
         private void onSettingsMenuItemClick(object sender, RoutedEventArgs e)
@@ -26,11 +26,11 @@ namespace MetroSkinToolkit.Pages
 
             if (menuItem == view.MenuSettings_AccentColor)
             {
-                SubPages.Get(consts.page_Options_AccentColor)?.Activate();
+                SubPages.Get(consts.page_Settings_AccentColor)?.Activate();
             }
             else if (menuItem == view.MenuSettings_FriendList)
             {
-                SubPages.Get(consts.page_Options_FriendsList)?.Activate();
+                SubPages.Get(consts.page_Settings_FriendsList)?.Activate();
             }
             else
             {

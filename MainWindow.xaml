@@ -16,7 +16,7 @@
         <Grid Grid.Row="1" Background="#FF252526">
             <views:Menu x:Name="Page_Menu" Visibility="Visible"/>
             <views:Setup x:Name="Page_Setup" Visibility="Hidden"/>
-            <views:Settings x:Name="Page_Options" Visibility="Hidden"/>
+            <views:Settings x:Name="Page_Settings" Visibility="Hidden"/>
             <views:About x:Name="Page_About" Visibility="Hidden"/>
         </Grid>
     </Grid>

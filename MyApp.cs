@@ -35,9 +35,9 @@ namespace MetroSkinToolkit
         {
             public const string page_Menu = "MENU";
             public const string page_Setup = "SETUP";
-            public const string page_Options = "SETTINGS_HOME";
-            public const string page_Options_AccentColor = "SETTING_ACCENT_COLOR";
-            public const string page_Options_FriendsList = "SETTING_FRIEND_LIST";
+            public const string page_Settings = "SETTINGS_HOME";
+            public const string page_Settings_AccentColor = "SETTING_ACCENT_COLOR";
+            public const string page_Settings_FriendsList = "SETTING_FRIEND_LIST";
             public const string page_About = "ABOUT";
         }
     }

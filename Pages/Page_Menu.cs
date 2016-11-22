@@ -15,7 +15,7 @@ namespace MetroSkinToolkit.Pages
             view = mainWindow.Page_Menu;
 
             view.Menu_Setup.Click += onMenuItemClick;
-            view.Menu_Options.Click += onMenuItemClick;
+            view.Menu_Settings.Click += onMenuItemClick;
             view.Menu_About.Click += onMenuItemClick;
         }
 
@@ -27,9 +27,9 @@ namespace MetroSkinToolkit.Pages
             {
                 wnd.SetPage(consts.page_Setup);
             }
-            else if (menuItem == view.Menu_Options)
+            else if (menuItem == view.Menu_Settings)
             {
-                wnd.SetPage(consts.page_Options);
+                wnd.SetPage(consts.page_Settings);
             }
             else if (menuItem == view.Menu_About)
             {

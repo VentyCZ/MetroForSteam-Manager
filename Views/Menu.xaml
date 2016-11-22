@@ -12,7 +12,7 @@
 
             <components:MainMenuItem x:Name="Menu_Setup" Headline="Install / Update / Repair" Description="This option represents the starting point for skin installation &amp; updating" />
             <Separator Height="10" Background="DodgerBlue"/>
-            <components:MainMenuItem x:Name="Menu_Options" Headline="Settings / Customization" Description="This option gives you tools to customize the looks of the skin - from colors to layout options" />
+            <components:MainMenuItem x:Name="Menu_Settings" Headline="Settings / Customization" Description="This option gives you tools to customize the looks of the skin - from colors to layout options" />
             <Separator Height="10" Background="DodgerBlue"/>
             <components:MainMenuItem x:Name="Menu_About" Headline="About" Description="This option enables you to get more information about all the authors involved" />
         </StackPanel>

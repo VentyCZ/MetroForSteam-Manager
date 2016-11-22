@@ -32,7 +32,7 @@ namespace MetroSkinToolkit
             //Basic page setup
             AddPage(new Page_Menu(consts.page_Menu, Page_Menu, this));
             AddPage(new Page_Setup(consts.page_Setup, Page_Setup, this));
-            AddPage(new Page_Settings(consts.page_Options, Page_Options, this));
+            AddPage(new Page_Settings(consts.page_Settings, Page_Settings, this));
             AddPage(new Page_About(consts.page_About, Page_About, this));
 
             //Connect the header - Sets the displayed title, among other things
